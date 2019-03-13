@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flash, fly">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="this 指向问题this指向问题可以归结为四类 默认绑定默认绑定–函数调用类型：独立函数调用，this指向全局对象。1234567891011121314var a = &quot;foo&quot;;  function foo()&amp;#123;      console.log(this.a);  &amp;#125;  foo();  // &quot;foo&quot;  ```javascript在严格模式下，全局对象将无法使用默认绑">
+<meta name="keywords" content="前端、html5、js、css3、vuejs、nodejs、react(学习中)、微信小程序开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="朱育仪的博客">
+<meta property="og:url" content="http://yoursite.com/2019/03/13/this指向（资料总结）/index.html">
+<meta property="og:site_name" content="朱育仪的博客">
+<meta property="og:description" content="this 指向问题this指向问题可以归结为四类 默认绑定默认绑定–函数调用类型：独立函数调用，this指向全局对象。1234567891011121314var a = &quot;foo&quot;;  function foo()&amp;#123;      console.log(this.a);  &amp;#125;  foo();  // &quot;foo&quot;  ```javascript在严格模式下，全局对象将无法使用默认绑">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-06T09:37:51.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="朱育仪的博客">
+<meta name="twitter:description" content="this 指向问题this指向问题可以归结为四类 默认绑定默认绑定–函数调用类型：独立函数调用，this指向全局对象。1234567891011121314var a = &quot;foo&quot;;  function foo()&amp;#123;      console.log(this.a);  &amp;#125;  foo();  // &quot;foo&quot;  ```javascript在严格模式下，全局对象将无法使用默认绑">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/13/this指向（资料总结）/">
+
+
+
+
+
+  <title> | 朱育仪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">朱育仪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">flash fly ~~~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/this指向（资料总结）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="flash">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朱育仪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T18:13:39+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="this-指向问题"><a href="#this-指向问题" class="headerlink" title="this 指向问题"></a>this 指向问题</h3><p>this指向问题可以归结为四类</p>
+<h6 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h6><p>默认绑定–函数调用类型：独立函数调用，this指向全局对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// "foo"  </span></span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">在严格模式下，全局对象将无法使用默认绑定，因此this会绑定到undefined。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line"><span class="meta">    "use strict"</span>;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// TypeError：this is undefined</span></span><br></pre></td></tr></table></figure></p>
+<h6 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h6><ol>
+<li>调用位置是否有上下文对象，或者说被某个对象拥有或者包含</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;  </span><br><span class="line">    a : <span class="number">2</span>,  </span><br><span class="line">    foo : foo  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;  </span><br><span class="line">    a : <span class="number">1</span>,  </span><br><span class="line">    obj1 : obj1  </span><br><span class="line">&#125;  </span><br><span class="line">obj2.obj1.foo();    <span class="comment">//结果：2</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>隐式丢失<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a : <span class="number">2</span>,  </span><br><span class="line">    foo : foo  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> bar = obj.foo;  </span><br><span class="line">bar();  <span class="comment">//"foo"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>虽然bar是obj.foo的一个引用，但是实际上，它引用的是foo函数本身，因此此时的bar()其实是不带任何修饰的函数调用，因此应用了默认绑定。</p>
+<h6 id="显示绑定"><a href="#显示绑定" class="headerlink" title="显示绑定"></a>显示绑定</h6><p>call()、apply()、bind(),详情请见同级目录下 call 与 aplly html 以及 this指向问题（个人总结）.md</p>
+<h6 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h6><p>this绑定的是新创建的对象</p>
+<h6 id="绑定规则"><a href="#绑定规则" class="headerlink" title="绑定规则"></a>绑定规则</h6><ol>
+<li><p>函数是否是new绑定？如果是，this绑定的是新创建的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数是否通过call、apply显示绑定或硬绑定？如果是，this绑定的是指定的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo.call(obj);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数是否在某个上下文对象中隐式调用？如果是，this绑定的是那个上下文对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = obj.foo();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上述全不是，则使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到全局window对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h6 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h6><p>把null或undefined作为this的绑定对象传入call、apply、bind，调用时会被忽略，实际应用的是默认绑定规则！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;  </span><br><span class="line">foo.call(<span class="literal">null</span>, <span class="number">2</span>);          <span class="comment">//1  </span></span><br><span class="line">foo.apply(<span class="literal">undefined</span>, [<span class="number">3</span>]);  <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<h6 id="es6箭头函数"><a href="#es6箭头函数" class="headerlink" title="es6箭头函数"></a>es6箭头函数</h6><p>箭头函数不使用this的四种标准规则，而是根据外层（函数或者全局）作用域来决定this。<br>箭头函数的绑定无法被修改。常用于回调函数中，如事件处理器或定时器。和ES6之前代码中的this = self机制一样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">    &#125;,<span class="number">100</span>);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span> : <span class="number">2</span>&#125;;  </span><br><span class="line">foo.call(obj);</span><br></pre></td></tr></table></figure></p>
+<h6 id="this-如何确定-详解"><a href="#this-如何确定-详解" class="headerlink" title="this 如何确定 详解"></a>this 如何确定 详解</h6><ol>
+<li><p>（隐式绑定）如果某个对象中某个成员是个function，当从 这个对象 上调用这个方法 时 this 指向 当前对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"gang"</span>,  </span><br><span class="line">    timeTravel:<span class="function"><span class="keyword">function</span>(<span class="params">year</span>)</span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstname + <span class="string">" "</span> + <span class="keyword">this</span>.lastname + <span class="string">" is time traveling to "</span> + year);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">myObj.timeTravel(<span class="number">2014</span>);    <span class="comment">//li gang is time traveling to 2014（父/拥有者对象：myObj）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（隐私绑定）可以通过创建一个新的对象，来引用FenFei对象上的timeTravel方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Camile = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"yunxia"</span>  </span><br><span class="line">&#125;</span><br><span class="line">Camile.timeTravel = myObj.timeTravel;  </span><br><span class="line">Camile.timeTravel(<span class="number">2014</span>);    <span class="comment">//li yunxia is time traveling to 2014（父/拥有者对象：Camile）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（隐式丢失）使用变量保存FenFei.timeTravel方法的引用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getTimeTravel = myObj.timeTravel;  </span><br><span class="line">getTimeTravel(<span class="number">2014</span>);    <span class="comment">//undefined undefined is time traveling to 2014（父/拥有者对象：Window；window对象里并没有firstName和lastName属性）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>异步调用的方法内部的this</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btnDom = <span class="built_in">document</span>.getElementById(<span class="string">"zyy"</span>);  </span><br><span class="line">btnDom.addEventListener(<span class="string">'click'</span>,myObj.timeTravel);<span class="comment">//undefined undefined is time traveling to [object MouseEvent]（父/拥有者对象：button）  </span></span><br><span class="line">  </span><br><span class="line">btnDom.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">    myObj.timeTravel(<span class="number">2014</span>);<span class="comment">//li gang is time traveling to 2014（父/拥有者对象：myObj）  </span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（new绑定）构造函数里的this<br>当使用构造函数创建一个对象的实例时，构造函数里的this就是新建的实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> TimeTravel = <span class="function"><span class="keyword">function</span>(<span class="params">fName, lName</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.firstname = fName;  </span><br><span class="line">    <span class="keyword">this</span>.lastname = lName;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> myObj = <span class="keyword">new</span> TimeTravel(<span class="string">"li"</span>, <span class="string">"gang"</span>);  </span><br><span class="line"><span class="built_in">console</span>.log(myObj.firstname + <span class="string">" "</span> + myObj.lastname);      <span class="comment">//li gang</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（显示绑定）call和apply方法设定this值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Camile = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"yunxia"</span>  </span><br><span class="line">&#125;  </span><br><span class="line">myObj.timeTravel.call(Camile,<span class="number">2014</span>);        <span class="comment">//li yunxia is time traveling to 2014（指定this对象为Camile）  </span></span><br><span class="line">myObj.timeTravel.apply(Camile,[<span class="number">2014</span>]); <span class="comment">//li yunxia is time traveling to 2014（指定this对象为Camile）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（显示绑定）bind将函数绑定至某个对象（ES5）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">y</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x + y;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;  </span><br><span class="line"><span class="comment">/* f.bind(o)返回一个新函数，调用g(2)会把原始的函数f()当作o的方法来调用 */</span>  </span><br><span class="line"><span class="keyword">var</span> g = f.bind(o);    </span><br><span class="line">g(<span class="number">2</span>);   <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wxpay.jpg" alt="flash 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="flash 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/13/requestAnimationFrame/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/13/this指向问题（个人性总结）/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="flash">
+            
+              <p class="site-author-name" itemprop="name">flash</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到 falsh 的主站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zjzswqzyy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:939037508@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.yuque.com/yekai-5v5dp" target="_blank" title="语雀">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>语雀</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhuyuyi.cn/home" target="_blank" title="个人作品">
+                      
+                        <i class="fa fa-fw fa-skype"></i>个人作品</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#this-指向问题"><span class="nav-number">1.</span> <span class="nav-text">this 指向问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#默认绑定"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">默认绑定</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#隐式绑定"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">隐式绑定</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#显示绑定"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">显示绑定</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#new绑定"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">new绑定</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#绑定规则"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">绑定规则</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#注意点"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#es6箭头函数"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">es6箭头函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#this-如何确定-详解"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">this 如何确定 详解</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">flash</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
