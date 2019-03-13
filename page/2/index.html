@@ -521,589 +521,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/this指向（资料总结）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="flash">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="朱育仪的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/13/this指向（资料总结）/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T19:44:52+08:00">
-                2019-03-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="this-指向问题"><a href="#this-指向问题" class="headerlink" title="this 指向问题"></a>this 指向问题</h3><p>this指向问题可以归结为四类</p>
-<h6 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h6><p>默认绑定–函数调用类型：独立函数调用，this指向全局对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// "foo"  </span></span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">在严格模式下，全局对象将无法使用默认绑定，因此this会绑定到undefined。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line"><span class="meta">    "use strict"</span>;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// TypeError：this is undefined</span></span><br></pre></td></tr></table></figure></p>
-<h6 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h6><ol>
-<li>调用位置是否有上下文对象，或者说被某个对象拥有或者包含</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;  </span><br><span class="line">    a : <span class="number">2</span>,  </span><br><span class="line">    foo : foo  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;  </span><br><span class="line">    a : <span class="number">1</span>,  </span><br><span class="line">    obj1 : obj1  </span><br><span class="line">&#125;  </span><br><span class="line">obj2.obj1.foo();    <span class="comment">//结果：2</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>隐式丢失<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a : <span class="number">2</span>,  </span><br><span class="line">    foo : foo  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> bar = obj.foo;  </span><br><span class="line">bar();  <span class="comment">//"foo"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>虽然bar是obj.foo的一个引用，但是实际上，它引用的是foo函数本身，因此此时的bar()其实是不带任何修饰的函数调用，因此应用了默认绑定。</p>
-<h6 id="显示绑定"><a href="#显示绑定" class="headerlink" title="显示绑定"></a>显示绑定</h6><p>call()、apply()、bind(),详情请见同级目录下 call 与 aplly html 以及 this指向问题（个人总结）.md</p>
-<h6 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h6><p>this绑定的是新创建的对象</p>
-<h6 id="绑定规则"><a href="#绑定规则" class="headerlink" title="绑定规则"></a>绑定规则</h6><ol>
-<li><p>函数是否是new绑定？如果是，this绑定的是新创建的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>函数是否通过call、apply显示绑定或硬绑定？如果是，this绑定的是指定的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo.call(obj);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>函数是否在某个上下文对象中隐式调用？如果是，this绑定的是那个上下文对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = obj.foo();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上述全不是，则使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到全局window对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo();</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h6 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h6><p>把null或undefined作为this的绑定对象传入call、apply、bind，调用时会被忽略，实际应用的是默认绑定规则！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;  </span><br><span class="line">foo.call(<span class="literal">null</span>, <span class="number">2</span>);          <span class="comment">//1  </span></span><br><span class="line">foo.apply(<span class="literal">undefined</span>, [<span class="number">3</span>]);  <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
-<h6 id="es6箭头函数"><a href="#es6箭头函数" class="headerlink" title="es6箭头函数"></a>es6箭头函数</h6><p>箭头函数不使用this的四种标准规则，而是根据外层（函数或者全局）作用域来决定this。<br>箭头函数的绑定无法被修改。常用于回调函数中，如事件处理器或定时器。和ES6之前代码中的this = self机制一样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">    &#125;,<span class="number">100</span>);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span> : <span class="number">2</span>&#125;;  </span><br><span class="line">foo.call(obj);</span><br></pre></td></tr></table></figure></p>
-<h6 id="this-如何确定-详解"><a href="#this-如何确定-详解" class="headerlink" title="this 如何确定 详解"></a>this 如何确定 详解</h6><ol>
-<li><p>（隐式绑定）如果某个对象中某个成员是个function，当从 这个对象 上调用这个方法 时 this 指向 当前对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"gang"</span>,  </span><br><span class="line">    timeTravel:<span class="function"><span class="keyword">function</span>(<span class="params">year</span>)</span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstname + <span class="string">" "</span> + <span class="keyword">this</span>.lastname + <span class="string">" is time traveling to "</span> + year);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">myObj.timeTravel(<span class="number">2014</span>);    <span class="comment">//li gang is time traveling to 2014（父/拥有者对象：myObj）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>（隐私绑定）可以通过创建一个新的对象，来引用FenFei对象上的timeTravel方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Camile = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"yunxia"</span>  </span><br><span class="line">&#125;</span><br><span class="line">Camile.timeTravel = myObj.timeTravel;  </span><br><span class="line">Camile.timeTravel(<span class="number">2014</span>);    <span class="comment">//li yunxia is time traveling to 2014（父/拥有者对象：Camile）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>（隐式丢失）使用变量保存FenFei.timeTravel方法的引用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getTimeTravel = myObj.timeTravel;  </span><br><span class="line">getTimeTravel(<span class="number">2014</span>);    <span class="comment">//undefined undefined is time traveling to 2014（父/拥有者对象：Window；window对象里并没有firstName和lastName属性）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>异步调用的方法内部的this</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btnDom = <span class="built_in">document</span>.getElementById(<span class="string">"zyy"</span>);  </span><br><span class="line">btnDom.addEventListener(<span class="string">'click'</span>,myObj.timeTravel);<span class="comment">//undefined undefined is time traveling to [object MouseEvent]（父/拥有者对象：button）  </span></span><br><span class="line">  </span><br><span class="line">btnDom.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">    myObj.timeTravel(<span class="number">2014</span>);<span class="comment">//li gang is time traveling to 2014（父/拥有者对象：myObj）  </span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>（new绑定）构造函数里的this<br>当使用构造函数创建一个对象的实例时，构造函数里的this就是新建的实例。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> TimeTravel = <span class="function"><span class="keyword">function</span>(<span class="params">fName, lName</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.firstname = fName;  </span><br><span class="line">    <span class="keyword">this</span>.lastname = lName;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> myObj = <span class="keyword">new</span> TimeTravel(<span class="string">"li"</span>, <span class="string">"gang"</span>);  </span><br><span class="line"><span class="built_in">console</span>.log(myObj.firstname + <span class="string">" "</span> + myObj.lastname);      <span class="comment">//li gang</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>（显示绑定）call和apply方法设定this值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Camile = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"yunxia"</span>  </span><br><span class="line">&#125;  </span><br><span class="line">myObj.timeTravel.call(Camile,<span class="number">2014</span>);        <span class="comment">//li yunxia is time traveling to 2014（指定this对象为Camile）  </span></span><br><span class="line">myObj.timeTravel.apply(Camile,[<span class="number">2014</span>]); <span class="comment">//li yunxia is time traveling to 2014（指定this对象为Camile）</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>（显示绑定）bind将函数绑定至某个对象（ES5）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">y</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x + y;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;  </span><br><span class="line"><span class="comment">/* f.bind(o)返回一个新函数，调用g(2)会把原始的函数f()当作o的方法来调用 */</span>  </span><br><span class="line"><span class="keyword">var</span> g = f.bind(o);    </span><br><span class="line">g(<span class="number">2</span>);   <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/this指向问题（个人性总结）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="flash">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="朱育仪的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/13/this指向问题（个人性总结）/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T19:44:52+08:00">
-                2019-03-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h3><p>this 指向 可以 定义为 this 永远指向最后调用它的那个对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Cherry"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);          <span class="comment">// windowsName</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"inner:"</span> + <span class="keyword">this</span>);    <span class="comment">// inner: Window</span></span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"outer:"</span> + <span class="keyword">this</span>)         <span class="comment">// outer: Window</span></span><br></pre></td></tr></table></figure>
-<p>上面的例子中 先声明并赋值了一个 全局 name 变量 和 函数 a，当执行函数 a 时，由于函数 a 在 全局作用域下执行，相当于 window.a(),所以 this.name 值为 “windowsName”，this 指向 window。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name: <span class="string">"Cherry"</span>,</span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);      <span class="comment">// Cherry</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
-<p>和上面不同的是 定义了一个 对象 a ，调用时 a.fn(); 根据 this 永远指向最后调用它的那个对象，所以 this 指向 对象 a, 事实上，对象a，可以看做 window 对象的一个属性，所以可以这样调用 window.a.fn()<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    <span class="comment">// name: "Cherry",</span></span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);      <span class="comment">// undefined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
-<p>这里，我把 对象 a 中的 name 注掉，此时 a.fn(),为 undefined。</p>
-<h6 id="改变-this-指向"><a href="#改变-this-指向" class="headerlink" title="改变 this 指向"></a>改变 this 指向</h6><p>使用 ES6 的箭头函数<br>在函数内部使用 _this = this<br>使用 apply、call、bind<br>new 实例化一个对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line"></span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);    </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>);     <span class="comment">// window</span></span><br><span class="line">        &#125;,<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()</span><br></pre></td></tr></table></figure></p>
-<p>在执行 a.func2()时，setTimeout函数进入异步任务队列，系统准备压栈处理，100ms后，开始执行，此时this 无法找到正确的指向，所以 在非严格模式下，this 指向 window ，严格模式下，报错。</p>
-<p>在es6箭头函数情况下，箭头函数中没有 this 绑定，必须通过查找作用域链来决定其值，如果箭头函数被非箭头函数包含，则 this 绑定的是最近一层非箭头函数的 this，否则，this 为 undefined”。</p>
-<h6 id="apply-call-bind"><a href="#apply-call-bind" class="headerlink" title="apply call bind"></a>apply call bind</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.func1()</span><br><span class="line">        &#125;.apply(a),<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            <span class="comment">// Cherry</span></span><br></pre></td></tr></table></figure>
-<p>通过 apply 强行改变了 this 指向<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.func1()</span><br><span class="line">        &#125;.call(a),<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            <span class="comment">// Cherry</span></span><br></pre></td></tr></table></figure></p>
-<p>通过 call<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.func1()</span><br><span class="line">        &#125;.bind(a)(),<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            <span class="comment">// Cherry</span></span><br></pre></td></tr></table></figure></p>
-<p>通过 bind</p>
-<p>fun.apply(thisArg, [argsArray]);<br>thisArg 是 this 指向，在浏览器中如果没有找到 this ，最终会把 this 指向 全局对象 window，argsArray 是传的参数<br>fun.call(thisArg[, arg1[, arg2[, …]]]);<br>call 接受的是若干个参数列表， apply 是接受一个数组，而bind 方法会创建一个新的函数</p>
-<h6 id="js函数调用"><a href="#js函数调用" class="headerlink" title="js函数调用"></a>js函数调用</h6><ol>
-<li>作为一个函数调用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Cherry"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);          <span class="comment">// windowsName</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"inner:"</span> + <span class="keyword">this</span>);    <span class="comment">// inner: Window</span></span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"outer:"</span> + <span class="keyword">this</span>)         <span class="comment">// outer: Window</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>a函数不属于任何一个 常规变量，就是一个函数。在这种情况下，调用函数时，this在非严格模式下，指向 window ，严格模式下 为 undefined</p>
-<ol start="2">
-<li>使用构造函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.firstName = arg1;</span><br><span class="line">    <span class="keyword">this</span>.lastName  = arg2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// This    creates a new object</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> myFunction(<span class="string">"Li"</span>,<span class="string">"Cherry"</span>);</span><br><span class="line">a.lastName;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>下面是 new 过程的伪代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> myFunction(<span class="string">"Li"</span>,<span class="string">"Cherry"</span>);</span><br><span class="line"><span class="keyword">new</span> myFunction&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">    obj.__proto__ = myFunction.prototype;</span><br><span class="line">    <span class="keyword">var</span> result = myFunction.call(obj,<span class="string">"Li"</span>,<span class="string">"Cherry"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> result === <span class="string">'obj'</span>? result : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>1.创建一个新的空对象obj<br>2.把这个obj的原型指向构造函数 myFunction 的原型<br>3.改变 this 指向，变为 new 出来的新对象 使用的 call<br>4.如果无返回值或者返回一个非对象值，则将 obj 返回作为新对象；如果返回值是一个新对象的话那么直接直接返回该对象。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/requestAnimationFrame/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="flash">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="朱育仪的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/13/requestAnimationFrame/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T19:44:52+08:00">
-                2019-03-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h3><h6 id="屏幕刷新率"><a href="#屏幕刷新率" class="headerlink" title="屏幕刷新率"></a>屏幕刷新率</h6><p>图像在屏幕上更新的速度，也即屏幕上的图像每秒钟出现的次数，它的单位是赫兹(Hz)。 对于一般笔记本电脑，这个频率大概是60Hz， 可以在桌面上右键-&gt;屏幕分辨率-&gt;高级设置-&gt;监视器 中查看和设置。这个值的设定受屏幕分辨率、屏幕尺寸和显卡的影响，原则上设置成让眼睛看着舒适的值都行。</p>
-<p>市面上常见的显示器有两种，即CRT和LCD， CRT就是传统显示器，LCD就是我们常说的液晶显示器。</p>
-<p>CRT是一种使用阴极射线管的显示器，屏幕上的图形图像是由一个个因电子束击打而发光的荧光点组成，由于显像管内荧光粉受到电子束击打后发光的时间很短，所以电子束必须不断击打荧光粉使其持续发光。电子束每秒击打荧光粉的次数就是屏幕刷新频率。</p>
-<p>而对于LCD来说，则不存在刷新频率的问题，它根本就不需要刷新。因为LCD中每个像素都在持续不断地发光，直到不发光的电压改变并被送到控制器中，所以LCD不会有电子束击打荧光粉而引起的闪烁现象。</p>
-<p>因此，当你对着电脑屏幕什么也不做的情况下，显示器也会以每秒60次的频率正在不断的更新屏幕上的图像。为什么你感觉不到这个变化？ 那是因为人的眼睛有视觉停留效应，即前一副画面留在大脑的印象还没消失，紧接着后一副画面就跟上来了，这中间只间隔了16.7ms(1000/60≈16.7)， 所以会让你误以为屏幕上的图像是静止不动的。而屏幕给你的这种感觉是对的，试想一下，如果刷新频率变成1次/秒，屏幕上的图像就会出现严重的闪烁，这样就很容易引起眼睛疲劳、酸痛和头晕目眩等症状。</p>
-<h6 id="动画原理"><a href="#动画原理" class="headerlink" title="动画原理"></a>动画原理</h6><p>你眼前所看到图像正在以每秒60次的频率刷新，由于刷新频率很高，因此你感觉不到它在刷新。而动画本质就是要让人眼看到图像被刷新而引起变化的视觉效果，这个变化要以连贯的、平滑的方式进行过渡。</p>
-<p>刷新频率为60Hz的屏幕每16.7ms刷新一次，我们在屏幕每次刷新前，将图像的位置向左移动一个像素，即1px。这样一来，屏幕每次刷出来的图像位置都比前一个要差1px，因此你会看到图像在移动；由于我们人眼的视觉停留效应，当前位置的图像停留在大脑的印象还没消失，紧接着图像又被移到了下一个位置，因此你才会看到图像在流畅的移动，这就是视觉效果上形成的动画。</p>
-<h6 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h6><p>setTimeout 是通过设置一个间隔时间来不断的改变图像的位置，从而达到动画效果的。利用seTimeout实现的动画在某些低端机上会出现卡顿、抖动的现象。 这种现象的产生有两个原因：</p>
-<ol>
-<li>setTimeout的执行时间并不是确定的。在Javascript中，setTimeout 任务被放进了异步队列中，只有当主线程上的任务执行完以后，才会去检查这个队列里的任务是否需要开始执行，因此 setTimeout 的实际执行时间一般要比其设定的时间晚一些。</li>
-<li>刷新频率受屏幕分辨率和屏幕尺寸的影响，因此不同设备的屏幕刷新频率可能会不同，而 setTimeout只能设置一个固定的时间间隔，这个时间不一定和屏幕的刷新时间相同。</li>
-</ol>
-<p>setTimeout的执行只是在内存中对图像属性进行改变，这个变化必须要等到屏幕下次刷新时才会被更新到屏幕上。如果屏幕刷新频率与setTimeOut频率不一致，则会出现丢帧的现象。<br>假设屏幕每隔16.7ms刷新一次，而setTimeout每隔10ms设置图像向左移动1px，就会出现如下绘制过程：</p>
-<p>第0ms: 屏幕未刷新，等待中，setTimeout也未执行，等待中；<br>第10ms: 屏幕未刷新，等待中，setTimeout开始执行并设置图像属性left=1px；<br>第16.7ms: 屏幕开始刷新，屏幕上的图像向左移动了1px， setTimeout 未执行，继续等待中；<br>第20ms: 屏幕未刷新，等待中，setTimeout开始执行并设置left=2px;<br>第30ms: 屏幕未刷新，等待中，setTimeout开始执行并设置left=3px;<br>第33.4ms:屏幕开始刷新，屏幕上的图像向左移动了3px， setTimeout未执行，继续等待中；</p>
-<p>屏幕没有更新left=2px的那一帧画面，图像直接从1px的位置跳到了3px的位置，这就是丢帧现象，这种现象就会引起动画卡顿。</p>
-<h6 id="requestAnimationFrame-1"><a href="#requestAnimationFrame-1" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h6><p>与setTimeout相比，requestAnimationFrame最大的优势是由系统来决定回调函数的执行时机。具体一点讲，如果屏幕刷新率是60Hz,那么回调函数就每16.7ms被执行一次，如果刷新率是75Hz，那么这个时间间隔就变成了1000/75=13.3ms，换句话说就是，requestAnimationFrame的步伐跟着系统的刷新步伐走。它能保证回调函数在屏幕每一次的刷新间隔中只被执行一次，这样就不会引起丢帧现象，也不会导致动画出现卡顿的问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var progress = 0;</span><br><span class="line">//回调函数</span><br><span class="line">function render() &#123;</span><br><span class="line">    progress += 1; //修改图像的位置</span><br><span class="line">    if (progress &lt; 100) &#123;</span><br><span class="line">           window.requestAnimationFrame(render);   //在动画没有结束前，递归渲染</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//第一帧渲染</span><br><span class="line">window.requestAnimationFrame(render);</span><br></pre></td></tr></table></figure>
-<p>它的优势：</p>
-<ol>
-<li>CPU节能：使用setTimeout实现的动画，当页面被隐藏或最小化时，setTimeout 仍然在后台执行动画任务，由于此时页面处于不可见或不可用状态，刷新动画是没有意义的，完全是浪费CPU资源。而requestAnimationFrame则完全不同，当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停，因此跟着系统步伐走的requestAnimationFrame也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了CPU开销。</li>
-<li>函数节流：在高频率事件(resize,scroll等)中，为了防止在一个刷新间隔内发生多次函数执行，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销。一个刷新间隔内函数执行多次时没有意义的，因为显示器每16.7ms刷新一次，多次绘制并不会在屏幕上体现出来。</li>
-</ol>
-<h6 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h6><p>由于requestAnimationFrame目前还存在兼容性问题，而且不同的浏览器还需要带不同的前缀。因此需要通过优雅降级的方式对requestAnimationFrame进行封装，优先使用高级特性，然后再根据不同浏览器的情况进行回退，直止只能使用setTimeout的情况。<a href="https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js" target="_blank" rel="noopener">https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">if (!Date.now)</span><br><span class="line">    Date.now = function() &#123; return new Date().getTime(); &#125;;</span><br><span class="line"></span><br><span class="line">(function() &#123;</span><br><span class="line">    &apos;use strict&apos;;</span><br><span class="line">    </span><br><span class="line">    var vendors = [&apos;webkit&apos;, &apos;moz&apos;];</span><br><span class="line">    for (var i = 0; i &lt; vendors.length &amp;&amp; !window.requestAnimationFrame; ++i) &#123;</span><br><span class="line">        var vp = vendors[i];</span><br><span class="line">        window.requestAnimationFrame = window[vp+&apos;RequestAnimationFrame&apos;];</span><br><span class="line">        window.cancelAnimationFrame = (window[vp+&apos;CancelAnimationFrame&apos;]</span><br><span class="line">                                   || window[vp+&apos;CancelRequestAnimationFrame&apos;]);</span><br><span class="line">    &#125;</span><br><span class="line">    if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy</span><br><span class="line">        || !window.requestAnimationFrame || !window.cancelAnimationFrame) &#123;</span><br><span class="line">        var lastTime = 0;</span><br><span class="line">        window.requestAnimationFrame = function(callback) &#123;</span><br><span class="line">            var now = Date.now();</span><br><span class="line">            var nextTime = Math.max(lastTime + 16, now);</span><br><span class="line">            return setTimeout(function() &#123; callback(lastTime = nextTime); &#125;,</span><br><span class="line">                              nextTime - now);</span><br><span class="line">        &#125;;</span><br><span class="line">        window.cancelAnimationFrame = clearTimeout;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/new 运算符/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="flash">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="朱育仪的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/13/new 运算符/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T19:44:52+08:00">
-                2019-03-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="new-运算符"><a href="#new-运算符" class="headerlink" title="new 运算符"></a>new 运算符</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj  = &#123;&#125;;</span><br><span class="line">obj.__proto__ = F.prototype;</span><br><span class="line">F.call(obj);</span><br></pre></td></tr></table></figure>
-<p>第一行，我们创建了一个空对象obj;</p>
-<p>第二行，我们将这个空对象的<strong>proto</strong>成员指向了F函数对象prototype成员对象;</p>
-<p>第三行，我们将F函数对象的this指针替换成obj，然后再调用F函数.</p>
-<p>总结上面的例子</p>
-<p>1、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。</p>
-<p>2、属性和方法被加入到 this 引用的对象中。</p>
-<p>3、新创建的对象由 this 所引用，并且最后隐式的返回 this.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1232,7 +649,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/ceshi/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/this指向问题（个人性总结）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="flash">
@@ -1251,7 +668,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/13/ceshi/" itemprop="url">ceshi</a></h1>
+                <a class="post-title-link" href="/2019/02/08/this指向问题（个人性总结）/" itemprop="url">this指向(个人总结)</a></h1>
         
 
         <div class="post-meta">
@@ -1263,8 +680,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T17:06:40+08:00">
-                2019-03-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-08T20:18:40+08:00">
+                2019-02-08
               </time>
             
 
@@ -1286,8 +703,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/zyy/" itemprop="url" rel="index">
-                    <span itemprop="name">zyy</span>
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -1325,11 +742,537 @@
       
         
           
-            
+            <h2 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h2><p>this 指向 可以 定义为 this 永远指向最后调用它的那个对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Cherry"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);          <span class="comment">// windowsName</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"inner:"</span> + <span class="keyword">this</span>);    <span class="comment">// inner: Window</span></span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"outer:"</span> + <span class="keyword">this</span>)         <span class="comment">// outer: Window</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中 先声明并赋值了一个 全局 name 变量 和 函数 a，当执行函数 a 时，由于函数 a 在 全局作用域下执行，相当于 window.a(),所以 this.name 值为 “windowsName”，this 指向 window。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name: <span class="string">"Cherry"</span>,</span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);      <span class="comment">// Cherry</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
+<p>和上面不同的是 定义了一个 对象 a ，调用时 a.fn(); 根据 this 永远指向最后调用它的那个对象，所以 this 指向 对象 a, 事实上，对象a，可以看做 window 对象的一个属性，所以可以这样调用 window.a.fn()<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    <span class="comment">// name: "Cherry",</span></span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);      <span class="comment">// undefined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
+<p>这里，我把 对象 a 中的 name 注掉，此时 a.fn(),为 undefined。</p>
+<h3 id="改变-this-指向"><a href="#改变-this-指向" class="headerlink" title="改变 this 指向"></a>改变 this 指向</h3><p>使用 ES6 的箭头函数<br>在函数内部使用 _this = this<br>使用 apply、call、bind<br>new 实例化一个对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line"></span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);    </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>);     <span class="comment">// window</span></span><br><span class="line">        &#125;,<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()</span><br></pre></td></tr></table></figure></p>
+<p>在执行 a.func2()时，setTimeout函数进入异步任务队列，系统准备压栈处理，100ms后，开始执行，此时this 无法找到正确的指向，所以 在非严格模式下，this 指向 window ，严格模式下，报错。</p>
+<p>在es6箭头函数情况下，箭头函数中没有 this 绑定，必须通过查找作用域链来决定其值，如果箭头函数被非箭头函数包含，则 this 绑定的是最近一层非箭头函数的 this，否则，this 为 undefined”。</p>
+<h3 id="apply-call-bind"><a href="#apply-call-bind" class="headerlink" title="apply call bind"></a>apply call bind</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.func1()</span><br><span class="line">        &#125;.apply(a),<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            <span class="comment">// Cherry</span></span><br></pre></td></tr></table></figure>
+<p>通过 apply 强行改变了 this 指向<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.func1()</span><br><span class="line">        &#125;.call(a),<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            <span class="comment">// Cherry</span></span><br></pre></td></tr></table></figure></p>
+<p>通过 call<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name : <span class="string">"Cherry"</span>,</span><br><span class="line">    func1: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        setTimeout(  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.func1()</span><br><span class="line">        &#125;.bind(a)(),<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            <span class="comment">// Cherry</span></span><br></pre></td></tr></table></figure></p>
+<p>通过 bind</p>
+<p>fun.apply(thisArg, [argsArray]);<br>thisArg 是 this 指向，在浏览器中如果没有找到 this ，最终会把 this 指向 全局对象 window，argsArray 是传的参数<br>fun.call(thisArg[, arg1[, arg2[, …]]]);<br>call 接受的是若干个参数列表， apply 是接受一个数组，而bind 方法会创建一个新的函数</p>
+<h3 id="js函数调用"><a href="#js函数调用" class="headerlink" title="js函数调用"></a>js函数调用</h3><ol>
+<li>作为一个函数调用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Cherry"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);          <span class="comment">// windowsName</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"inner:"</span> + <span class="keyword">this</span>);    <span class="comment">// inner: Window</span></span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"outer:"</span> + <span class="keyword">this</span>)         <span class="comment">// outer: Window</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>a函数不属于任何一个 常规变量，就是一个函数。在这种情况下，调用函数时，this在非严格模式下，指向 window ，严格模式下 为 undefined</p>
+<ol start="2">
+<li>使用构造函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">arg1, arg2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.firstName = arg1;</span><br><span class="line">    <span class="keyword">this</span>.lastName  = arg2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// This    creates a new object</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> myFunction(<span class="string">"Li"</span>,<span class="string">"Cherry"</span>);</span><br><span class="line">a.lastName;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>下面是 new 过程的伪代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> myFunction(<span class="string">"Li"</span>,<span class="string">"Cherry"</span>);</span><br><span class="line"><span class="keyword">new</span> myFunction&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">    obj.__proto__ = myFunction.prototype;</span><br><span class="line">    <span class="keyword">var</span> result = myFunction.call(obj,<span class="string">"Li"</span>,<span class="string">"Cherry"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> result === <span class="string">'obj'</span>? result : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>1.创建一个新的空对象obj<br>2.把这个obj的原型指向构造函数 myFunction 的原型<br>3.改变 this 指向，变为 new 出来的新对象 使用的 call<br>4.如果无返回值或者返回一个非对象值，则将 obj 返回作为新对象；如果返回值是一个新对象的话那么直接直接返回该对象。</p>
+
           
         
       
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/this指向（资料总结）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="flash">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朱育仪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/08/this指向（资料总结）/" itemprop="url">this 指向问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-08T17:19:40+08:00">
+                2019-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="this-指向问题"><a href="#this-指向问题" class="headerlink" title="this 指向问题"></a>this 指向问题</h2><p>this指向问题可以归结为四类</p>
+<h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p>默认绑定–函数调用类型：独立函数调用，this指向全局对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// "foo"  </span></span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">在严格模式下，全局对象将无法使用默认绑定，因此this会绑定到undefined。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line"><span class="meta">    "use strict"</span>;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// TypeError：this is undefined</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><ol>
+<li>调用位置是否有上下文对象，或者说被某个对象拥有或者包含</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;  </span><br><span class="line">    a : <span class="number">2</span>,  </span><br><span class="line">    foo : foo  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;  </span><br><span class="line">    a : <span class="number">1</span>,  </span><br><span class="line">    obj1 : obj1  </span><br><span class="line">&#125;  </span><br><span class="line">obj2.obj1.foo();    <span class="comment">//结果：2</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>隐式丢失<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a : <span class="number">2</span>,  </span><br><span class="line">    foo : foo  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> bar = obj.foo;  </span><br><span class="line">bar();  <span class="comment">//"foo"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>虽然bar是obj.foo的一个引用，但是实际上，它引用的是foo函数本身，因此此时的bar()其实是不带任何修饰的函数调用，因此应用了默认绑定。</p>
+<h3 id="显示绑定"><a href="#显示绑定" class="headerlink" title="显示绑定"></a>显示绑定</h3><p>call()、apply()、bind(),详情请见同级目录下 call 与 aplly html 以及 this指向问题（个人总结）.md</p>
+<h3 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h3><p>this绑定的是新创建的对象</p>
+<h3 id="绑定规则"><a href="#绑定规则" class="headerlink" title="绑定规则"></a>绑定规则</h3><ol>
+<li><p>函数是否是new绑定？如果是，this绑定的是新创建的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数是否通过call、apply显示绑定或硬绑定？如果是，this绑定的是指定的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo.call(obj);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数是否在某个上下文对象中隐式调用？如果是，this绑定的是那个上下文对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = obj.foo();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上述全不是，则使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到全局window对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = foo();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>把null或undefined作为this的绑定对象传入call、apply、bind，调用时会被忽略，实际应用的是默认绑定规则！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;  </span><br><span class="line">foo.call(<span class="literal">null</span>, <span class="number">2</span>);          <span class="comment">//1  </span></span><br><span class="line">foo.apply(<span class="literal">undefined</span>, [<span class="number">3</span>]);  <span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="es6箭头函数"><a href="#es6箭头函数" class="headerlink" title="es6箭头函数"></a>es6箭头函数</h3><p>箭头函数不使用this的四种标准规则，而是根据外层（函数或者全局）作用域来决定this。<br>箭头函数的绑定无法被修改。常用于回调函数中，如事件处理器或定时器。和ES6之前代码中的this = self机制一样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">    &#125;,<span class="number">100</span>);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span> : <span class="number">2</span>&#125;;  </span><br><span class="line">foo.call(obj);</span><br></pre></td></tr></table></figure></p>
+<h3 id="this-如何确定-详解"><a href="#this-如何确定-详解" class="headerlink" title="this 如何确定 详解"></a>this 如何确定 详解</h3><ol>
+<li><p>（隐式绑定）如果某个对象中某个成员是个function，当从 这个对象 上调用这个方法 时 this 指向 当前对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObj = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"gang"</span>,  </span><br><span class="line">    timeTravel:<span class="function"><span class="keyword">function</span>(<span class="params">year</span>)</span>&#123;  </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.firstname + <span class="string">" "</span> + <span class="keyword">this</span>.lastname + <span class="string">" is time traveling to "</span> + year);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">myObj.timeTravel(<span class="number">2014</span>);    <span class="comment">//li gang is time traveling to 2014（父/拥有者对象：myObj）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（隐私绑定）可以通过创建一个新的对象，来引用FenFei对象上的timeTravel方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Camile = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"yunxia"</span>  </span><br><span class="line">&#125;</span><br><span class="line">Camile.timeTravel = myObj.timeTravel;  </span><br><span class="line">Camile.timeTravel(<span class="number">2014</span>);    <span class="comment">//li yunxia is time traveling to 2014（父/拥有者对象：Camile）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（隐式丢失）使用变量保存FenFei.timeTravel方法的引用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getTimeTravel = myObj.timeTravel;  </span><br><span class="line">getTimeTravel(<span class="number">2014</span>);    <span class="comment">//undefined undefined is time traveling to 2014（父/拥有者对象：Window；window对象里并没有firstName和lastName属性）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>异步调用的方法内部的this</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btnDom = <span class="built_in">document</span>.getElementById(<span class="string">"zyy"</span>);  </span><br><span class="line">btnDom.addEventListener(<span class="string">'click'</span>,myObj.timeTravel);<span class="comment">//undefined undefined is time traveling to [object MouseEvent]（父/拥有者对象：button）  </span></span><br><span class="line">  </span><br><span class="line">btnDom.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;  </span><br><span class="line">    myObj.timeTravel(<span class="number">2014</span>);<span class="comment">//li gang is time traveling to 2014（父/拥有者对象：myObj）  </span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（new绑定）构造函数里的this<br>当使用构造函数创建一个对象的实例时，构造函数里的this就是新建的实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> TimeTravel = <span class="function"><span class="keyword">function</span>(<span class="params">fName, lName</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.firstname = fName;  </span><br><span class="line">    <span class="keyword">this</span>.lastname = lName;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> myObj = <span class="keyword">new</span> TimeTravel(<span class="string">"li"</span>, <span class="string">"gang"</span>);  </span><br><span class="line"><span class="built_in">console</span>.log(myObj.firstname + <span class="string">" "</span> + myObj.lastname);      <span class="comment">//li gang</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（显示绑定）call和apply方法设定this值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Camile = &#123;  </span><br><span class="line">    firstname:<span class="string">"li"</span>,  </span><br><span class="line">    lastname:<span class="string">"yunxia"</span>  </span><br><span class="line">&#125;  </span><br><span class="line">myObj.timeTravel.call(Camile,<span class="number">2014</span>);        <span class="comment">//li yunxia is time traveling to 2014（指定this对象为Camile）  </span></span><br><span class="line">myObj.timeTravel.apply(Camile,[<span class="number">2014</span>]); <span class="comment">//li yunxia is time traveling to 2014（指定this对象为Camile）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（显示绑定）bind将函数绑定至某个对象（ES5）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">y</span>)</span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.x + y;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;  </span><br><span class="line"><span class="comment">/* f.bind(o)返回一个新函数，调用g(2)会把原始的函数f()当作o的方法来调用 */</span>  </span><br><span class="line"><span class="keyword">var</span> g = f.bind(o);    </span><br><span class="line">g(<span class="number">2</span>);   <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/requestAnimationFrame/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="flash">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朱育仪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/07/requestAnimationFrame/" itemprop="url">requestAnimationFrame</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T23:19:40+08:00">
+                2019-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/动画/" itemprop="url" rel="index">
+                    <span itemprop="name">动画</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h2><h3 id="屏幕刷新率"><a href="#屏幕刷新率" class="headerlink" title="屏幕刷新率"></a>屏幕刷新率</h3><p>图像在屏幕上更新的速度，也即屏幕上的图像每秒钟出现的次数，它的单位是赫兹(Hz)。 对于一般笔记本电脑，这个频率大概是60Hz， 可以在桌面上右键-&gt;屏幕分辨率-&gt;高级设置-&gt;监视器 中查看和设置。这个值的设定受屏幕分辨率、屏幕尺寸和显卡的影响，原则上设置成让眼睛看着舒适的值都行。</p>
+<p>市面上常见的显示器有两种，即CRT和LCD， CRT就是传统显示器，LCD就是我们常说的液晶显示器。</p>
+<p>CRT是一种使用阴极射线管的显示器，屏幕上的图形图像是由一个个因电子束击打而发光的荧光点组成，由于显像管内荧光粉受到电子束击打后发光的时间很短，所以电子束必须不断击打荧光粉使其持续发光。电子束每秒击打荧光粉的次数就是屏幕刷新频率。</p>
+<p>而对于LCD来说，则不存在刷新频率的问题，它根本就不需要刷新。因为LCD中每个像素都在持续不断地发光，直到不发光的电压改变并被送到控制器中，所以LCD不会有电子束击打荧光粉而引起的闪烁现象。</p>
+<p>因此，当你对着电脑屏幕什么也不做的情况下，显示器也会以每秒60次的频率正在不断的更新屏幕上的图像。为什么你感觉不到这个变化？ 那是因为人的眼睛有视觉停留效应，即前一副画面留在大脑的印象还没消失，紧接着后一副画面就跟上来了，这中间只间隔了16.7ms(1000/60≈16.7)， 所以会让你误以为屏幕上的图像是静止不动的。而屏幕给你的这种感觉是对的，试想一下，如果刷新频率变成1次/秒，屏幕上的图像就会出现严重的闪烁，这样就很容易引起眼睛疲劳、酸痛和头晕目眩等症状。</p>
+<h3 id="动画原理"><a href="#动画原理" class="headerlink" title="动画原理"></a>动画原理</h3><p>你眼前所看到图像正在以每秒60次的频率刷新，由于刷新频率很高，因此你感觉不到它在刷新。而动画本质就是要让人眼看到图像被刷新而引起变化的视觉效果，这个变化要以连贯的、平滑的方式进行过渡。</p>
+<p>刷新频率为60Hz的屏幕每16.7ms刷新一次，我们在屏幕每次刷新前，将图像的位置向左移动一个像素，即1px。这样一来，屏幕每次刷出来的图像位置都比前一个要差1px，因此你会看到图像在移动；由于我们人眼的视觉停留效应，当前位置的图像停留在大脑的印象还没消失，紧接着图像又被移到了下一个位置，因此你才会看到图像在流畅的移动，这就是视觉效果上形成的动画。</p>
+<h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h3><p>setTimeout 是通过设置一个间隔时间来不断的改变图像的位置，从而达到动画效果的。利用seTimeout实现的动画在某些低端机上会出现卡顿、抖动的现象。 这种现象的产生有两个原因：</p>
+<ol>
+<li>setTimeout的执行时间并不是确定的。在Javascript中，setTimeout 任务被放进了异步队列中，只有当主线程上的任务执行完以后，才会去检查这个队列里的任务是否需要开始执行，因此 setTimeout 的实际执行时间一般要比其设定的时间晚一些。</li>
+<li>刷新频率受屏幕分辨率和屏幕尺寸的影响，因此不同设备的屏幕刷新频率可能会不同，而 setTimeout只能设置一个固定的时间间隔，这个时间不一定和屏幕的刷新时间相同。</li>
+</ol>
+<p>setTimeout的执行只是在内存中对图像属性进行改变，这个变化必须要等到屏幕下次刷新时才会被更新到屏幕上。如果屏幕刷新频率与setTimeOut频率不一致，则会出现丢帧的现象。<br>假设屏幕每隔16.7ms刷新一次，而setTimeout每隔10ms设置图像向左移动1px，就会出现如下绘制过程：</p>
+<p>第0ms: 屏幕未刷新，等待中，setTimeout也未执行，等待中；<br>第10ms: 屏幕未刷新，等待中，setTimeout开始执行并设置图像属性left=1px；<br>第16.7ms: 屏幕开始刷新，屏幕上的图像向左移动了1px， setTimeout 未执行，继续等待中；<br>第20ms: 屏幕未刷新，等待中，setTimeout开始执行并设置left=2px;<br>第30ms: 屏幕未刷新，等待中，setTimeout开始执行并设置left=3px;<br>第33.4ms:屏幕开始刷新，屏幕上的图像向左移动了3px， setTimeout未执行，继续等待中；</p>
+<p>屏幕没有更新left=2px的那一帧画面，图像直接从1px的位置跳到了3px的位置，这就是丢帧现象，这种现象就会引起动画卡顿。</p>
+<h3 id="requestAnimationFrame-1"><a href="#requestAnimationFrame-1" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h3><p>与setTimeout相比，requestAnimationFrame最大的优势是由系统来决定回调函数的执行时机。具体一点讲，如果屏幕刷新率是60Hz,那么回调函数就每16.7ms被执行一次，如果刷新率是75Hz，那么这个时间间隔就变成了1000/75=13.3ms，换句话说就是，requestAnimationFrame的步伐跟着系统的刷新步伐走。它能保证回调函数在屏幕每一次的刷新间隔中只被执行一次，这样就不会引起丢帧现象，也不会导致动画出现卡顿的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var progress = 0;</span><br><span class="line">//回调函数</span><br><span class="line">function render() &#123;</span><br><span class="line">    progress += 1; //修改图像的位置</span><br><span class="line">    if (progress &lt; 100) &#123;</span><br><span class="line">           window.requestAnimationFrame(render);   //在动画没有结束前，递归渲染</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//第一帧渲染</span><br><span class="line">window.requestAnimationFrame(render);</span><br></pre></td></tr></table></figure>
+<p>它的优势：</p>
+<ol>
+<li>CPU节能：使用setTimeout实现的动画，当页面被隐藏或最小化时，setTimeout 仍然在后台执行动画任务，由于此时页面处于不可见或不可用状态，刷新动画是没有意义的，完全是浪费CPU资源。而requestAnimationFrame则完全不同，当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停，因此跟着系统步伐走的requestAnimationFrame也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了CPU开销。</li>
+<li>函数节流：在高频率事件(resize,scroll等)中，为了防止在一个刷新间隔内发生多次函数执行，使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销。一个刷新间隔内函数执行多次时没有意义的，因为显示器每16.7ms刷新一次，多次绘制并不会在屏幕上体现出来。</li>
+</ol>
+<h3 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h3><p>由于requestAnimationFrame目前还存在兼容性问题，而且不同的浏览器还需要带不同的前缀。因此需要通过优雅降级的方式对requestAnimationFrame进行封装，优先使用高级特性，然后再根据不同浏览器的情况进行回退，直止只能使用setTimeout的情况。<a href="https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js" target="_blank" rel="noopener">https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Date</span>.now)</span><br><span class="line">    <span class="built_in">Date</span>.now = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(); &#125;;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">    'use strict'</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> vendors = [<span class="string">'webkit'</span>, <span class="string">'moz'</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; vendors.length &amp;&amp; !<span class="built_in">window</span>.requestAnimationFrame; ++i) &#123;</span><br><span class="line">        <span class="keyword">var</span> vp = vendors[i];</span><br><span class="line">        <span class="built_in">window</span>.requestAnimationFrame = <span class="built_in">window</span>[vp+<span class="string">'RequestAnimationFrame'</span>];</span><br><span class="line">        <span class="built_in">window</span>.cancelAnimationFrame = (<span class="built_in">window</span>[vp+<span class="string">'CancelAnimationFrame'</span>]</span><br><span class="line">                                   || <span class="built_in">window</span>[vp+<span class="string">'CancelRequestAnimationFrame'</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/iP(ad|hone|od).*OS 6/</span>.test(<span class="built_in">window</span>.navigator.userAgent) <span class="comment">// iOS6 is buggy</span></span><br><span class="line">        || !<span class="built_in">window</span>.requestAnimationFrame || !<span class="built_in">window</span>.cancelAnimationFrame) &#123;</span><br><span class="line">        <span class="keyword">var</span> lastTime = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">window</span>.requestAnimationFrame = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">            <span class="keyword">var</span> nextTime = <span class="built_in">Math</span>.max(lastTime + <span class="number">16</span>, now);</span><br><span class="line">            <span class="keyword">return</span> setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; callback(lastTime = nextTime); &#125;,</span><br><span class="line">                              nextTime - now);</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">window</span>.cancelAnimationFrame = clearTimeout;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/new 运算符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="flash">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朱育仪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/06/new 运算符/" itemprop="url">new 运算符</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-06T13:08:40+08:00">
+                2019-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="new-运算符"><a href="#new-运算符" class="headerlink" title="new 运算符"></a>new 运算符</h2><p><img src="https://imgchr.com/i/Ak5Dne" class="full-image"><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/new 运算符/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
     
     
     
@@ -1465,22 +1408,20 @@
 
       
         
-          
-            <h2 id="js类型"><a href="#js类型" class="headerlink" title="js类型"></a>js类型</h2><p>js 拥有的类型为 null undefined string boolean number symbol（es6）object </p>
+          <h2 id="js类型"><a href="#js类型" class="headerlink" title="js类型"></a>js类型</h2><p>js 拥有的类型为 null undefined string boolean number symbol（es6）object </p>
 <p>null 代表了一个空对象的指针 因此 typeof null 是 object，如果定义的变量，将来用来保存对象，那么最好在该变量初始化时先定义为 null，</p>
 <p>boolean 值得注意的是，true false 区分大小写，True False 只是标识符，Boolean()转型函数，可以将一个值转为对应的boolean类型，</p>
-<h3 id="number-类型"><a href="#number-类型" class="headerlink" title="number 类型"></a>number 类型</h3><p>这里把 number 类型单独抽出来，是因为，我们在进行浮点数计算时，会出现 0.1 + 0.2 ！= 0.3 的情况，我们得弄清楚其中的原因。</p>
-<p>浮点数的表示方法，任何数在计算机面前都会被处理成二进制，而数字的二进制表示主要有原码、反码、补码。</p>
-<p>1.原码<br>原码是计算机中对数字的二进制的定点表示方法，最高位表示符号位，其余位表示数值位。优点显而易见，简单直观；缺点也很明显，不能直接参与运算，可能会报错，如11+(-11) =&gt; 10010110 =&gt; -22，结果竟然不等于0。<br>2.反码<br>正数的反码和其原码一样；负数的反码，符号位为1，数值部分按原码取反。例如 [+7]原 = 00000111，[+7]反 = 00000111； [-7]原 = 10000111，[-7]反 = 11111000。<br>3.补码<br>正数的补码和其原码一样；负数的补码为其反码加1。例如 [+7]原 = 00000111，[+7]反 = 00000111，[+7]补 = 00000111； [-7]原 = 10000111，[-7]反 = 11111000，[-7]补 = 11111001。</p>
-<p>4.小数浮点数十进制与 二进制之间的转换<br>十进制 0.125为例：要转为二进制 ，需要不停的相乘，0.125 <em> 2 = 0.25 取整数部分 0，第一位 为 0，<br>0.25 </em> 2 = 0.5 取 整数部分 0 作为第二位 ，<br>0.5 * 2 = 1 取整数 部分 1 作为第三位，<br>得到最终小二进制数 0.001 。</p>
-<p>转为 十进制 ， 乘 2 的 负位数次方，<br>如 0.001 小数 第一位 0 <em> 2 的 -1 次方，为 0，<br>第二位 0 </em> 2 的 -2 次方 ，为 0 ，<br>第三位 1 * 2 的 -3 次方 为 0.125，<br>最后 将结果想加 0 + 0 + 0.125 = 0.125；</p>
-<p>js中 number类型由于遵循 IEEE 754 标准，使用64位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。<br>64位比特又可分为三个部分：<br>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数<br>指数位E：中间的 11 位存储指数（exponent），用来表示次方数<br>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</p>
-<p>js 在进行计算时，由计算机将 0.1 , 0.2 转为 二进制，而 0.1 0.2 的二进制为 无穷大，而 IEEE 754 标准 下的浮点数 用 64 位表示，截断的二进制数字，再转换为十进制，就成了0.30000000000000004。所以在进行算术计算时会产生误差。</p>
-
-          
+<p><img src="https://imgchr.com/i/Ak5d1K" class="full-image"><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/06/js精度问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1616,39 +1557,160 @@
 
       
         
-          
-            <h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="原始值到原始值转换"><a href="#原始值到原始值转换" class="headerlink" title="原始值到原始值转换"></a>原始值到原始值转换</h3><ol>
-<li>原始值转换为布尔值，undefined null 0 -0 NaN “ “ 都会被转化为 false,其他都会被转为 true </li>
-<li>原始值转化为字符串 都相当于 原始值 + “”</li>
-<li>原始值转为数字：布尔转数字 true  -&gt; 1 false -&gt; 0，字符串转数字： 以数字表示的字符串可以直接会转为字符串，如果字符串头尾有空格会忽略，但是空格在中间，转换结果就是 NaN。</li>
-</ol>
-<h3 id="原始值到对象的转换"><a href="#原始值到对象的转换" class="headerlink" title="原始值到对象的转换"></a>原始值到对象的转换</h3><p>null undefined 转为对象直接报错<br>原始值通过调用String(),Number()、Boolean()构造函数，转为他们各自的包装对象。</p>
-<h3 id="对象到原始值的转换"><a href="#对象到原始值的转换" class="headerlink" title="对象到原始值的转换"></a>对象到原始值的转换</h3><ol>
-<li>对象转为布尔 都为 true，null 是 false</li>
-<li>对象到字符串：如果对象有 toString() 方法，就调用 toString() 方法。如果该方法返回原始值，就讲这个值转化为字符串。<br>如果对象没有 toString() 方法或者 该方法返回的不是原始值，就会调用该对象的 valueOf() 方法。如果存在就调用这个方法，如果返回值是原始值，就转化为字符串。<br>否则就报错。</li>
-<li>对象到数字：对象转化为数字做了跟对象转化为字符串做了想同的事儿，不同的是后者是先调用 valueOf 方法，如果调用失败或者返回不是原始值，就调用 toString 方法。</li>
-<li>一些常用内置对象 toString 方法和 valueOf 的转换规则</li>
-</ol>
-<p>toString()<br>    (1) Number 返回为本表示，可接受一个参数表示输出的进制数，默认为十进制<br>    (2) String 直接返回原字符串值<br>    (3) Boolean 返回文本表示 true 或 false<br>    (4) Object 返回 [object 类型名],Object 类型调用该方法时返回[object Object]<br>    (5) Array 将数组元素转为字符串，用逗号拼接并返回<br>    (6) Function 直接返回函数的文本声明<br>    (7) Date 返回日期文本表示<br>valueOf()<br>    (1) Number 返回原始类型的数字值<br>    (2) String 返回原始类型的字符串值<br>    (3) Boolean 返回原始类型的Boolean<br>    (4) Object 返回对象本身<br>    (5) Array 方法继承于Object.prototype返回原数组<br>    (6) Function 方法继承于Object.prototype返回函数本身<br>    (7) Date 方法等同于 getTime 返回时间戳</p>
-<h3 id="运算符如何进行类型转换"><a href="#运算符如何进行类型转换" class="headerlink" title="== 运算符如何进行类型转换"></a>== 运算符如何进行类型转换</h3><ol>
-<li>如果一个值是null，另一个值是undefined，则相等</li>
-<li>如果一个是字符串，另一个值是数字，则把字符串转换成数字，进行比较</li>
-<li>如果任意值是true，则把true转换成1再进行比较；如果任意值是false，则把false转换成0再进行比较</li>
-<li>如果一个是对象，另一个是数值或字符串，把对象转换成基础类型的值再比较。对象转换成基础类型，利用它的 toString 或者 valueOf 方法。 js 核心内置类，会尝试 valueOf 先于 toString（可以理解为对象优先转换成数字）；例外的是 Date，Date 利用的是 toString 转换。非 js 核心的对象，通过自己的实现中定义的方法转换成原始值。</li>
-</ol>
-<h3 id="运算符如何进行类型转化"><a href="#运算符如何进行类型转化" class="headerlink" title="+ 运算符如何进行类型转化"></a>+ 运算符如何进行类型转化</h3><ol>
-<li>一元运算 + “2” // 2</li>
-<li>二元运算<br> (1) 两边如果有字符串，另一边一会转化为字符串进行相加<br> (2) 如果没有字符串，两边都会转化为数字进行相加，对象也根据前面的方法转化为原始值数字。<br> (3) 如果其中的一个操作数是对象,则将对象转换成原始值，日期对象会通过 toString() 方法进行转换，其他对象通过 valueOf（）方法进行转换，但是大多数方法都是不具备可用的 valueOf() 方法，所以还是会通过 toString() 方法执行转换。</li>
-</ol>
-<p>(! + [] + [] + ![]).length // 9</p>
-<ol>
-<li>(!0 + [] + false).length</li>
-<li>(true + [] + false).length</li>
-<li>(“true” + false).length</li>
-<li>“truefalse”.length // 9</li>
-</ol>
+          <h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p><img src="https://imgchr.com/i/Ak50XD" class="full-image"><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/05/js类型转换/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/04/http与https/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="flash">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朱育仪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/04/http与https/" itemprop="url">http 与 https</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-04T20:05:40+08:00">
+                2019-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="http-与-https"><a href="#http-与-https" class="headerlink" title="http 与 https"></a>http 与 https</h2><h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p>（官方摘录），仔细研读还是能理解的，所以我这边就基本上没有自己重构。<br><img src="https://imgchr.com/i/Ak5w6O" class="full-image"><br>TCP在IP地址之上引端口（port），它允许计算机通过网络提供各种服务。一些端口号为不同的服务保留，而且这些端口号是众所周知。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/04/http与https/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1734,7 +1796,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
