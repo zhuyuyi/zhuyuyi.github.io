@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="es6,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="class类声明和函数声明的区别和特点1、函数声明可以被提升，类声明不能提升(与let声明类似)。2、类声明中的代码自动强行运行在严格模式下。3、类中的所有方法都是不可枚举的，而自定义类型中，可以通过Object.defineProperty()手工指定不可枚举属性。4、每个类都有一个[[construct]]的方法。5、只能使用new来调用类的构造函数。6、不能在类中修改类名。">
+<meta name="keywords" content="es6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6中的class">
+<meta property="og:url" content="http://yoursite.com/2019/02/28/es6中class/index.html">
+<meta property="og:site_name" content="朱育仪的博客">
+<meta property="og:description" content="class类声明和函数声明的区别和特点1、函数声明可以被提升，类声明不能提升(与let声明类似)。2、类声明中的代码自动强行运行在严格模式下。3、类中的所有方法都是不可枚举的，而自定义类型中，可以通过Object.defineProperty()手工指定不可枚举属性。4、每个类都有一个[[construct]]的方法。5、只能使用new来调用类的构造函数。6、不能在类中修改类名。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAiJf0.md.jpg">
+<meta property="og:updated_time" content="2019-03-14T03:26:44.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="es6中的class">
+<meta name="twitter:description" content="class类声明和函数声明的区别和特点1、函数声明可以被提升，类声明不能提升(与let声明类似)。2、类声明中的代码自动强行运行在严格模式下。3、类中的所有方法都是不可枚举的，而自定义类型中，可以通过Object.defineProperty()手工指定不可枚举属性。4、每个类都有一个[[construct]]的方法。5、只能使用new来调用类的构造函数。6、不能在类中修改类名。">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/14/AAiJf0.md.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/28/es6中class/">
+
+
+
+
+
+  <title>es6中的class | 朱育仪的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">朱育仪的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">flash fly ~~~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/es6中class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="flash">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="朱育仪的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">es6中的class</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T12:08:40+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><h3 id="类声明和函数声明的区别和特点"><a href="#类声明和函数声明的区别和特点" class="headerlink" title="类声明和函数声明的区别和特点"></a>类声明和函数声明的区别和特点</h3><p>1、函数声明可以被提升，类声明不能提升(与let声明类似)。<br>2、类声明中的代码自动强行运行在严格模式下。<br>3、类中的所有方法都是不可枚举的，而自定义类型中，可以通过Object.defineProperty()手工指定不可枚举属性。<br>4、每个类都有一个[[construct]]的方法。<br>5、只能使用new来调用类的构造函数。<br>6、不能在类中修改类名。<br><img src="https://s2.ax1x.com/2019/03/14/AAiJf0.md.jpg" alt="AAiJf0.jpg" border="0" class="full-image"><br><a id="more"></a></p>
+<h3 id="类表达式"><a href="#类表达式" class="headerlink" title="类表达式"></a>类表达式</h3><p>类有2种表现形式：声明式和表达式。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> A = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// B 可以在外部使用，但是 B1 只能在内部使用</span></span><br><span class="line"><span class="keyword">let</span> B = <span class="class"><span class="keyword">class</span> <span class="title">B1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="可以将类作为参数传入"><a href="#可以将类作为参数传入" class="headerlink" title="可以将类作为参数传入"></a>可以将类作为参数传入</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> A = <span class="class"><span class="keyword">class</span> </span>&#123;</span><br><span class="line">    sayName()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">zyy</span>)</span>&#123;</span><br><span class="line">    retrun <span class="keyword">new</span> zyy()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> As = test(A);</span><br><span class="line">As.sayName(); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="通过立即调用类构造函数可以创建单例。"><a href="#通过立即调用类构造函数可以创建单例。" class="headerlink" title="通过立即调用类构造函数可以创建单例。"></a>通过立即调用类构造函数可以创建单例。</h3><p>用new调用类的表达式，紧接着通过一对小括号调用这个表达式。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    sayName()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;(<span class="string">'zyy'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(A.sayName());  <span class="comment">// zyy</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h3><p>类支持在原型上定义访问器属性。<br>尽管应该在类的构造函数中创建自己的属性，但是类也支持直接在原型上定义访问器属性。创建getter时，需要在关键字get 后紧跟一个空格和响应的标识符；创建setter时，只需把关键字get替换为set即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(state)&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">get</span> myName()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.state.name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> myName()&#123;</span><br><span class="line">        <span class="keyword">this</span>.state.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> desripor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(A.prototype,<span class="string">'myName'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'get'</span>,<span class="keyword">in</span> desripor); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(desripor.enumerable); <span class="comment">// false 不可枚举</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="可计算成员名称"><a href="#可计算成员名称" class="headerlink" title="可计算成员名称"></a>可计算成员名称</h3><p>可计算成员是指使用方括号包裹一个表达式，如下面定义了一个变量m，然后使用[m]设置为类A的原型方法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> m = <span class="string">'zyy'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    [m]()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> A(<span class="string">'你好'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a.zyy()); <span class="comment">// 你好</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="生成器方法"><a href="#生成器方法" class="headerlink" title="生成器方法"></a>生成器方法</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4MDYyNjQ1OA==&amp;mid=2247483956&amp;idx=1&amp;sn=adc1ec7ae4cd3f01728fdcb43a38690f&amp;chksm=ebb4d641dcc35f57cd2bf66ba9819874cf300108884700bf3d6a1410c18c0ed4ff3d90d10a8f#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI4MDYyNjQ1OA==&amp;mid=2247483956&amp;idx=1&amp;sn=adc1ec7ae4cd3f01728fdcb43a38690f&amp;chksm=ebb4d641dcc35f57cd2bf66ba9819874cf300108884700bf3d6a1410c18c0ed4ff3d90d10a8f#rd</a></p>
+<h3 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h3><p>静态成员是指在方法名或属性名前面加上static关键字，和普通方法不一样的是，static修饰的方法不能在实例中访问，只能用类名直接访问。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> create(name)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> A(name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> A = A.create(<span class="string">'zyy'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a.name); <span class="comment">// zyy</span></span><br><span class="line"><span class="keyword">let</span> t = <span class="keyword">new</span> A();</span><br><span class="line"><span class="built_in">console</span>.log(t.create(<span class="string">'zyy'</span>))<span class="string">'; // 报错</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="继承与派生类"><a href="#继承与派生类" class="headerlink" title="继承与派生类"></a>继承与派生类</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MzI4MDYyNjQ1OA==&amp;mid=2247483956&amp;idx=1&amp;sn=adc1ec7ae4cd3f01728fdcb43a38690f&amp;chksm=ebb4d641dcc35f57cd2bf66ba9819874cf300108884700bf3d6a1410c18c0ed4ff3d90d10a8f#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI4MDYyNjQ1OA==&amp;mid=2247483956&amp;idx=1&amp;sn=adc1ec7ae4cd3f01728fdcb43a38690f&amp;chksm=ebb4d641dcc35f57cd2bf66ba9819874cf300108884700bf3d6a1410c18c0ed4ff3d90d10a8f#rd</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wxpay.jpg" alt="flash 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="flash 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/es6/" rel="tag"># es6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/28/es6中的promise/" rel="next" title="Promise">
+                <i class="fa fa-chevron-left"></i> Promise
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/01/闭包/" rel="prev" title="闭包">
+                闭包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="flash">
+            
+              <p class="site-author-name" itemprop="name">flash</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到 falsh 的主站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zjzswqzyy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:939037508@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.yuque.com/yekai-5v5dp" target="_blank" title="语雀">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>语雀</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhuyuyi.cn/home" target="_blank" title="个人作品">
+                      
+                        <i class="fa fa-fw fa-skype"></i>个人作品</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#class"><span class="nav-number">1.</span> <span class="nav-text">class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类声明和函数声明的区别和特点"><span class="nav-number">1.1.</span> <span class="nav-text">类声明和函数声明的区别和特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类表达式"><span class="nav-number">1.2.</span> <span class="nav-text">类表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以将类作为参数传入"><span class="nav-number">1.3.</span> <span class="nav-text">可以将类作为参数传入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过立即调用类构造函数可以创建单例。"><span class="nav-number">1.4.</span> <span class="nav-text">通过立即调用类构造函数可以创建单例。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问器属性"><span class="nav-number">1.5.</span> <span class="nav-text">访问器属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可计算成员名称"><span class="nav-number">1.6.</span> <span class="nav-text">可计算成员名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器方法"><span class="nav-number">1.7.</span> <span class="nav-text">生成器方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态成员"><span class="nav-number">1.8.</span> <span class="nav-text">静态成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承与派生类"><span class="nav-number">1.9.</span> <span class="nav-text">继承与派生类</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">flash</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

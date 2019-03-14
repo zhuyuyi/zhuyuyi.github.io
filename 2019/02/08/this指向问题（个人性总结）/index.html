@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="this指向this 指向 可以 定义为 this 永远指向最后调用它的那个对象。 12345678910var name = &quot;windowsName&quot;;function a() &amp;#123;    var name = &quot;Cherry&quot;;    console.log(this.name);          // windowsName    console.log(&quot;inner:&quot; + t">
+<meta name="description" content="this指向this 指向 可以 定义为 this 永远指向最后调用它的那个对象。">
 <meta name="keywords" content="javascript语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this指向(个人总结)">
 <meta property="og:url" content="http://yoursite.com/2019/02/08/this指向问题（个人性总结）/index.html">
 <meta property="og:site_name" content="朱育仪的博客">
-<meta property="og:description" content="this指向this 指向 可以 定义为 this 永远指向最后调用它的那个对象。 12345678910var name = &quot;windowsName&quot;;function a() &amp;#123;    var name = &quot;Cherry&quot;;    console.log(this.name);          // windowsName    console.log(&quot;inner:&quot; + t">
+<meta property="og:description" content="this指向this 指向 可以 定义为 this 永远指向最后调用它的那个对象。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-13T15:47:54.717Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAiB79.png">
+<meta property="og:updated_time" content="2019-03-14T03:29:25.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="this指向(个人总结)">
-<meta name="twitter:description" content="this指向this 指向 可以 定义为 this 永远指向最后调用它的那个对象。 12345678910var name = &quot;windowsName&quot;;function a() &amp;#123;    var name = &quot;Cherry&quot;;    console.log(this.name);          // windowsName    console.log(&quot;inner:&quot; + t">
+<meta name="twitter:description" content="this指向this 指向 可以 定义为 this 永远指向最后调用它的那个对象。">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/14/AAiB79.png">
 
 
 
@@ -343,7 +345,7 @@
 
       
         <h2 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h2><p>this 指向 可以 定义为 this 永远指向最后调用它的那个对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Cherry"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);          <span class="comment">// windowsName</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"inner:"</span> + <span class="keyword">this</span>);    <span class="comment">// inner: Window</span></span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"outer:"</span> + <span class="keyword">this</span>)         <span class="comment">// outer: Window</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/03/14/AAiB79.png" alt="AAiJf0.jpg" border="0" class="full-image"><br><a id="more"></a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Cherry"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);          <span class="comment">// windowsName</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"inner:"</span> + <span class="keyword">this</span>);    <span class="comment">// inner: Window</span></span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"outer:"</span> + <span class="keyword">this</span>)         <span class="comment">// outer: Window</span></span><br></pre></td></tr></table></figure></p>
 <p>上面的例子中 先声明并赋值了一个 全局 name 变量 和 函数 a，当执行函数 a 时，由于函数 a 在 全局作用域下执行，相当于 window.a(),所以 this.name 值为 “windowsName”，this 指向 window。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    name: <span class="string">"Cherry"</span>,</span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);      <span class="comment">// Cherry</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
 <p>和上面不同的是 定义了一个 对象 a ，调用时 a.fn(); 根据 this 永远指向最后调用它的那个对象，所以 this 指向 对象 a, 事实上，对象a，可以看做 window 对象的一个属性，所以可以这样调用 window.a.fn()<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"windowsName"</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    <span class="comment">// name: "Cherry",</span></span><br><span class="line">    fn : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);      <span class="comment">// undefined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
 <p>这里，我把 对象 a 中的 name 注掉，此时 a.fn(),为 undefined。</p>
@@ -435,8 +437,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/13/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/09/var、let、const区别/" rel="prev" title="let const  区别 于 var">
+                let const  区别 于 var <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -516,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -527,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -538,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

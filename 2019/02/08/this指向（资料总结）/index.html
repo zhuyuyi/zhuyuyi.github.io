@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="this 指向问题this指向问题可以归结为四类 默认绑定默认绑定–函数调用类型：独立函数调用，this指向全局对象。1234567891011121314var a = &quot;foo&quot;;  function foo()&amp;#123;      console.log(this.a);  &amp;#125;  foo();  // &quot;foo&quot;  ```javascript在严格模式下，全局对象将无法使用默认绑">
+<meta name="description" content="this 指向问题this指向问题可以归结为四类">
 <meta name="keywords" content="javascript语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this 指向问题">
 <meta property="og:url" content="http://yoursite.com/2019/02/08/this指向（资料总结）/index.html">
 <meta property="og:site_name" content="朱育仪的博客">
-<meta property="og:description" content="this 指向问题this指向问题可以归结为四类 默认绑定默认绑定–函数调用类型：独立函数调用，this指向全局对象。1234567891011121314var a = &quot;foo&quot;;  function foo()&amp;#123;      console.log(this.a);  &amp;#125;  foo();  // &quot;foo&quot;  ```javascript在严格模式下，全局对象将无法使用默认绑">
+<meta property="og:description" content="this 指向问题this指向问题可以归结为四类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-13T15:47:03.758Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAiwm4.jpg">
+<meta property="og:updated_time" content="2019-03-14T03:29:11.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="this 指向问题">
-<meta name="twitter:description" content="this 指向问题this指向问题可以归结为四类 默认绑定默认绑定–函数调用类型：独立函数调用，this指向全局对象。1234567891011121314var a = &quot;foo&quot;;  function foo()&amp;#123;      console.log(this.a);  &amp;#125;  foo();  // &quot;foo&quot;  ```javascript在严格模式下，全局对象将无法使用默认绑">
+<meta name="twitter:description" content="this 指向问题this指向问题可以归结为四类">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/14/AAiwm4.jpg">
 
 
 
@@ -342,7 +344,7 @@
       
 
       
-        <h2 id="this-指向问题"><a href="#this-指向问题" class="headerlink" title="this 指向问题"></a>this 指向问题</h2><p>this指向问题可以归结为四类</p>
+        <h2 id="this-指向问题"><a href="#this-指向问题" class="headerlink" title="this 指向问题"></a>this 指向问题</h2><p>this指向问题可以归结为四类<br><img src="https://s2.ax1x.com/2019/03/14/AAiwm4.jpg" alt="AAiJf0.jpg" border="0" class="full-image"><br><a id="more"></a></p>
 <h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p>默认绑定–函数调用类型：独立函数调用，this指向全局对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// "foo"  </span></span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">在严格模式下，全局对象将无法使用默认绑定，因此this会绑定到undefined。</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;  </span><br><span class="line"><span class="meta">    "use strict"</span>;  </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);  </span><br><span class="line">&#125;  </span><br><span class="line">foo();  <span class="comment">// TypeError：this is undefined</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><ol>
 <li>调用位置是否有上下文对象，或者说被某个对象拥有或者包含</li>
@@ -543,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -554,7 +556,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -565,7 +567,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="朱育仪的博客">
 <meta property="og:description" content="requestAnimationFrame屏幕刷新率图像在屏幕上更新的速度，也即屏幕上的图像每秒钟出现的次数，它的单位是赫兹(Hz)。 对于一般笔记本电脑，这个频率大概是60Hz， 可以在桌面上右键-&amp;gt;屏幕分辨率-&amp;gt;高级设置-&amp;gt;监视器 中查看和设置。这个值的设定受屏幕分辨率、屏幕尺寸和显卡的影响，原则上设置成让眼睛看着舒适的值都行。 市面上常见的显示器有两种，即CRT和LCD，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-13T15:45:46.075Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAiU6U.jpg">
+<meta property="og:updated_time" content="2019-03-14T03:28:50.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="requestAnimationFrame">
 <meta name="twitter:description" content="requestAnimationFrame屏幕刷新率图像在屏幕上更新的速度，也即屏幕上的图像每秒钟出现的次数，它的单位是赫兹(Hz)。 对于一般笔记本电脑，这个频率大概是60Hz， 可以在桌面上右键-&amp;gt;屏幕分辨率-&amp;gt;高级设置-&amp;gt;监视器 中查看和设置。这个值的设定受屏幕分辨率、屏幕尺寸和显卡的影响，原则上设置成让眼睛看着舒适的值都行。 市面上常见的显示器有两种，即CRT和LCD，">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/14/AAiU6U.jpg">
 
 
 
@@ -343,8 +345,7 @@
 
       
         <h2 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h2><h3 id="屏幕刷新率"><a href="#屏幕刷新率" class="headerlink" title="屏幕刷新率"></a>屏幕刷新率</h3><p>图像在屏幕上更新的速度，也即屏幕上的图像每秒钟出现的次数，它的单位是赫兹(Hz)。 对于一般笔记本电脑，这个频率大概是60Hz， 可以在桌面上右键-&gt;屏幕分辨率-&gt;高级设置-&gt;监视器 中查看和设置。这个值的设定受屏幕分辨率、屏幕尺寸和显卡的影响，原则上设置成让眼睛看着舒适的值都行。</p>
-<p>市面上常见的显示器有两种，即CRT和LCD， CRT就是传统显示器，LCD就是我们常说的液晶显示器。</p>
-<p>CRT是一种使用阴极射线管的显示器，屏幕上的图形图像是由一个个因电子束击打而发光的荧光点组成，由于显像管内荧光粉受到电子束击打后发光的时间很短，所以电子束必须不断击打荧光粉使其持续发光。电子束每秒击打荧光粉的次数就是屏幕刷新频率。</p>
+<p>市面上常见的显示器有两种，即CRT和LCD， CRT就是传统显示器，LCD就是我们常说的液晶显示器。<br><img src="https://s2.ax1x.com/2019/03/14/AAiU6U.jpg" alt="AAiJf0.jpg" border="0" class="full-image"><br><a id="more"></a><br>CRT是一种使用阴极射线管的显示器，屏幕上的图形图像是由一个个因电子束击打而发光的荧光点组成，由于显像管内荧光粉受到电子束击打后发光的时间很短，所以电子束必须不断击打荧光粉使其持续发光。电子束每秒击打荧光粉的次数就是屏幕刷新频率。</p>
 <p>而对于LCD来说，则不存在刷新频率的问题，它根本就不需要刷新。因为LCD中每个像素都在持续不断地发光，直到不发光的电压改变并被送到控制器中，所以LCD不会有电子束击打荧光粉而引起的闪烁现象。</p>
 <p>因此，当你对着电脑屏幕什么也不做的情况下，显示器也会以每秒60次的频率正在不断的更新屏幕上的图像。为什么你感觉不到这个变化？ 那是因为人的眼睛有视觉停留效应，即前一副画面留在大脑的印象还没消失，紧接着后一副画面就跟上来了，这中间只间隔了16.7ms(1000/60≈16.7)， 所以会让你误以为屏幕上的图像是静止不动的。而屏幕给你的这种感觉是对的，试想一下，如果刷新频率变成1次/秒，屏幕上的图像就会出现严重的闪烁，这样就很容易引起眼睛疲劳、酸痛和头晕目眩等症状。</p>
 <h3 id="动画原理"><a href="#动画原理" class="headerlink" title="动画原理"></a>动画原理</h3><p>你眼前所看到图像正在以每秒60次的频率刷新，由于刷新频率很高，因此你感觉不到它在刷新。而动画本质就是要让人眼看到图像被刷新而引起变化的视觉效果，这个变化要以连贯的、平滑的方式进行过渡。</p>
@@ -515,7 +516,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -526,7 +527,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -537,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
