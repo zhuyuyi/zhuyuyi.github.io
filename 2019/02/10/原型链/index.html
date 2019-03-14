@@ -88,7 +88,9 @@
 <meta property="og:description" content="原型链https://zhuanlan.zhihu.com/p/22989691 构造函数、原型和实例的关系每个构造函数(constructor)都有一个原型对象(prototype),原型对象都包含一个指向构造函数的指针,而实例(instance)都包含一个指向原型对象的内部指针. js对象中的规则：如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAiyfx.jpg">
-<meta property="og:updated_time" content="2019-03-14T03:30:13.180Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAkSqe.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AAk9VH.png">
+<meta property="og:updated_time" content="2019-03-14T03:36:38.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型链">
 <meta name="twitter:description" content="原型链https://zhuanlan.zhihu.com/p/22989691 构造函数、原型和实例的关系每个构造函数(constructor)都有一个原型对象(prototype),原型对象都包含一个指向构造函数的指针,而实例(instance)都包含一个指向原型对象的内部指针. js对象中的规则：如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后">
@@ -346,7 +348,7 @@
       
         <h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p><a href="https://zhuanlan.zhihu.com/p/22989691" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22989691</a></p>
 <h3 id="构造函数、原型和实例的关系"><a href="#构造函数、原型和实例的关系" class="headerlink" title="构造函数、原型和实例的关系"></a>构造函数、原型和实例的关系</h3><p>每个构造函数(constructor)都有一个原型对象(prototype),原型对象都包含一个指向构造函数的指针,而实例(instance)都包含一个指向原型对象的内部指针.</p>
-<p>js对象中的规则：如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后才在该对象的原型(instance.prototype)里去找这个属性.<br><img src="https://s2.ax1x.com/2019/03/14/AAiyfx.jpg" alt="AAiJf0.jpg" border="0" class="full-image"><br><a id="more"></a></p>
+<p>js对象中的规则：如果试图引用对象(实例instance)的某个属性,会首先在对象内部寻找该属性,直至找不到,然后才在该对象的原型(instance.prototype)里去找这个属性.<br><img src="https://s2.ax1x.com/2019/03/14/AAiyfx.jpg" alt="AAiJf0.jpg" border="0" class="full-image"><br><a id="more"></a><br><img src="https://s2.ax1x.com/2019/03/14/AAkSqe.png" alt="AAkSqe.png" border="0"><br><img src="https://s2.ax1x.com/2019/03/14/AAk9VH.png" alt="AAk9VH.png" border="0"></p>
 <p>如果让原型对象指向另一个类型的实例.</p>
 <p>即：constructor1.prototype = instance2</p>
 <p>1).首先会在instance1内部属性中找一遍;<br>2).接着会在instance1.<strong>proto</strong>(constructor1.prototype)中找一遍,而constructor1.prototype 实际上是instance2, 也就是说在instance2中寻找该属性p1;<br>3).如果instance2中还是没有,此时程序不会灰心,它会继续在instance2.<strong>proto</strong>(constructor2.prototype)中寻找…直至Object的原型对象</p>
