@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/18/AmI4qx.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/18/AmIodK.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/18/AmIIZ6.png">
-<meta property="og:updated_time" content="2019-03-18T15:54:56.084Z">
+<meta property="og:updated_time" content="2019-03-20T13:00:12.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="chrome浏览器中查看闭包">
 <meta name="twitter:description" content="chrome浏览器中查看闭包例子11234567891011121314// demo01var fn;function foo() &amp;#123;    var a = 2;    function baz() &amp;#123;        console.log( a );    &amp;#125;    fn = baz;&amp;#125;function bar() &amp;#123;    fn();&amp;#12">
@@ -353,8 +353,7 @@
 
       
         <h2 id="chrome浏览器中查看闭包"><a href="#chrome浏览器中查看闭包" class="headerlink" title="chrome浏览器中查看闭包"></a>chrome浏览器中查看闭包</h2><h3 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo01</span></span><br><span class="line"><span class="keyword">var</span> fn;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">baz</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( a );</span><br><span class="line">    &#125;</span><br><span class="line">    fn = baz;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    fn();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line">bar(); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<p>第一步：设置断点，然后刷新页面。<br><img src="https://s2.ax1x.com/2019/03/18/AmI2RJ.png" alt="AmI2RJ.png" border="0"></p>
-<p>第二步：点击上图红色箭头指向的按钮（step into），该按钮的作用会根据代码执行顺序，一步一步向下执行。在点击的过程中，我们要注意观察下方call stack 与 scope的变化，以及函数执行位置的变化。</p>
+<p>第一步：设置断点，然后刷新页面。<br><img src="https://s2.ax1x.com/2019/03/18/AmI2RJ.png" alt="AmI2RJ.png" border="0"><br><a id="more"></a><br>第二步：点击上图红色箭头指向的按钮（step into），该按钮的作用会根据代码执行顺序，一步一步向下执行。在点击的过程中，我们要注意观察下方call stack 与 scope的变化，以及函数执行位置的变化。</p>
 <p><img src="https://s2.ax1x.com/2019/03/18/AmIgG4.png" alt="AmIgG4.png" border="0"></p>
 <p>我们可以看到，在chrome工具的理解中，由于在foo内部声明的baz函数在调用时访问了它的变量a，因此foo成为了闭包。这好像和我们学习到的知识不太一样。我们来看看在《你不知道的js》这本书中的例子中的理解。</p>
 <p><img src="https://s2.ax1x.com/2019/03/18/AmIRz9.png" alt="AmIRz9.png" border="0"></p>
