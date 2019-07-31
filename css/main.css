@@ -499,7 +499,8 @@ code {
   padding: 2px 4px;
   word-wrap: break-word;
   color: #555;
-  background: #eee;
+  background-color: #fff5f5;
+  color: #ff502c;
   border-radius: 3px;
   font-size: 13px;
 }
